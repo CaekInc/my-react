@@ -12,24 +12,60 @@ export default class GotService {
 
     return await res.json();
   }
-  getAllCharacters() {
-    return this.getResource("/characters?page=5&pageSize=10");
+  async getAllCharacters() {
+    const res = await this.getResource("/characters?page=5&pageSize=10");
+    return res.map(this._transformCharacter);
   }
-  getCharacter(id: string | number) {
-    return this.getResource(`/characters/${id}`);
-  }
-
-  getAllHouses() {
-    return this.getResource("/houses");
-  }
-  getHouse(id: string | number) {
-    return this.getResource(`/houses/${id}`);
+  async getCharacter(id: string | number) {
+    const character = await this.getResource(`/characters/${id}`);
+    return this._transformCharacter(character);
   }
 
-  getAllBooks() {
-    return this.getResource("/books");
+  async getAllHouses() {
+    const res = await this.getResource("/houses");
+    return res.map(this._transformHouses);
   }
-  getBook(id: string | number) {
-    return this.getResource(`/books/${id}`);
+  async getHouse(id: string | number) {
+    const house = await this.getResource(`/houses/${id}`);
+    return this._transformHouses(house);
+  }
+
+  async getAllBooks() {
+    const res = await this.getResource("/books");
+    return res.map(this._transformBooks);
+  }
+  async getBook(id: string | number) {
+    const book = await this.getResource(`/books/${id}`);
+    return this._transformBooks(book);
+  }
+
+  _transformCharacter(char: any) {
+    return {
+      name: char.name,
+      gender: char.gender,
+      born: char.born,
+      died: char.died,
+      culture: char.culture,
+    };
+  }
+
+  _transformHouses(house: any) {
+    return {
+      name: house.name,
+      region: house.region,
+      words: house.words,
+      titles: house.titles,
+      overlord: house.overlord,
+      ancestralWeapons: house.ancestralWeapons,
+    };
+  }
+
+  _transformBooks(book: any) {
+    return {
+      name: book.name,
+      numberOfPages: book.numberOfPages,
+      publisher: book.publisher,
+      released: book.released,
+    };
   }
 }
