@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import GotService from "../../services";
+import { Books, Characters, Houses } from '../../interfaces/index';
 
 export default class RandomChar extends Component {
   constructor() {
@@ -13,7 +14,7 @@ export default class RandomChar extends Component {
     char: {}
   };
 
-  onCharLoaded = (char: any) => {
+  onCharLoaded = (char: Characters) => {
     this.setState({char});
   }
 
@@ -23,7 +24,7 @@ export default class RandomChar extends Component {
   }
 
   render() {
-    const { char: { name, gender, born, died, culture }} = this.state;
+    const { char: { name, gender, born, died, culture } } : Characters = this.state;
 
     return (
       <div className="container py-4">

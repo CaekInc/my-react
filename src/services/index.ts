@@ -1,3 +1,5 @@
+import { Books, Characters, Houses } from './../interfaces/index';
+
 export default class GotService {
   constructor() {
     this._apiBase = "https://www.anapioficeandfire.com/api";
@@ -39,7 +41,7 @@ export default class GotService {
     return this._transformBooks(book);
   }
 
-  _transformCharacter(char: any) {
+  _transformCharacter(char: Characters) {
     return {
       name: char.name,
       gender: char.gender,
@@ -49,7 +51,7 @@ export default class GotService {
     };
   }
 
-  _transformHouses(house: any) {
+  _transformHouses(house: Houses) {
     return {
       name: house.name,
       region: house.region,
@@ -60,7 +62,7 @@ export default class GotService {
     };
   }
 
-  _transformBooks(book: any) {
+  _transformBooks(book: Books) {
     return {
       name: book.name,
       numberOfPages: book.numberOfPages,
