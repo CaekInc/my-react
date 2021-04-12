@@ -5,7 +5,7 @@ import PostStatusFilter from "../post-status-filter/post-status-filter";
 import PostList from "../post-list/post-list";
 import PostAddForm from "../post-add-form/post-add-form";
 import GotService from "../../services/index";
-import RandomChar from '../random-char/random-char'
+import RandomChar from "../random-char/random-char";
 
 export interface data {
   label: string;
@@ -14,7 +14,7 @@ export interface data {
   id: string | number;
 }
 
-export default class App extends Component {  
+export default class App extends Component {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -51,11 +51,9 @@ export default class App extends Component {
   }
 
   got() {
-    const got = new GotService;
-    got.getAllCharacters()
-      .then(res => console.log(res))
+    const got = new GotService();
+    got.getAllCharacters().then((res) => console.log(res));
   }
-
 
   deleteItem(id: string) {
     this.setState(({ data }: any) => {
@@ -138,14 +136,14 @@ export default class App extends Component {
   }
 
   onFilterChange(filter: string) {
-    this.setState({filter});
+    this.setState({ filter });
   }
 
   filterPosts(items: data[], filter: string) {
-    if (filter === 'like') {
-      return items.filter( (item) => item.like )
+    if (filter === "like") {
+      return items.filter((item) => item.like);
     } else {
-      return items
+      return items;
     }
   }
 
@@ -153,10 +151,10 @@ export default class App extends Component {
     const { data, term, filter }: any = this.state;
     const liked = data.filter((item: any) => item.like).length;
     const allPosts = data.length;
-    const someCharacter = new GotService;
-    someCharacter.getAllCharacters().then(res => res)
+    const someCharacter = new GotService();
+    someCharacter.getAllCharacters().then((res) => res);
 
-    const visiblePosts =  this.filterPosts(this.searchPosts(data, term), filter);
+    const visiblePosts = this.filterPosts(this.searchPosts(data, term), filter);
 
     return (
       <div className="container mx-auto h-full flex flex-col gap-y-4">
@@ -164,10 +162,12 @@ export default class App extends Component {
 
         <RandomChar></RandomChar>
 
-
         <div className="flex">
           <SearchPanel onUpdateSearch={this.onUpdateSearch} />
-          <PostStatusFilter filter={filter} onFilterChange={this.onFilterChange} />
+          <PostStatusFilter
+            filter={filter}
+            onFilterChange={this.onFilterChange}
+          />
         </div>
         <PostList
           posts={visiblePosts}
@@ -178,7 +178,6 @@ export default class App extends Component {
         <PostAddForm onAdd={this.addItem} />
         <div>
           <button onClick={this.got}>123</button>
-          
         </div>
       </div>
     );
