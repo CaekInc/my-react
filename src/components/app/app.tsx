@@ -6,6 +6,7 @@ import PostList from "../post-list/post-list";
 import PostAddForm from "../post-add-form/post-add-form";
 import GotService from "../../services/index";
 import RandomChar from "../random-char/random-char";
+import ItemList from "../item-list/item-list";
 
 export interface data {
   label: string;
@@ -18,6 +19,7 @@ export default class App extends Component {
   constructor(props: any) {
     super(props);
     this.state = {
+      showRandomChar: true,
       data: [
         {
           label: "I am",
@@ -147,6 +149,14 @@ export default class App extends Component {
     }
   }
 
+  toggleRandomChar = () => {
+    this.setState((state) => {
+      return {
+        showRandomChar: !state.showRandomChar,
+      };
+    });
+  };
+
   render() {
     const { data, term, filter }: any = this.state;
     const liked = data.filter((item: any) => item.like).length;
@@ -156,11 +166,21 @@ export default class App extends Component {
 
     const visiblePosts = this.filterPosts(this.searchPosts(data, term), filter);
 
+    const char = this.state.showRandomChar ? <RandomChar /> : null;
+
     return (
       <div className="container mx-auto h-full flex flex-col gap-y-4">
         <AppHeader liked={liked} allPosts={allPosts} />
 
-        <RandomChar></RandomChar>
+        {char}
+        <button
+          onClick={this.toggleRandomChar}
+          className="px-5 py-3 border border-blue text-blue rounded"
+        >
+          CHANGE
+        </button>
+
+        <ItemList/>
 
         <div className="flex">
           <SearchPanel onUpdateSearch={this.onUpdateSearch} />

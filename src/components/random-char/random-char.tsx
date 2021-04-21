@@ -5,11 +5,6 @@ import Spinner from "../spinner/spinner";
 import ErrorMessage from "../error-message/errorMessage";
 
 export default class RandomChar extends Component {
-  constructor() {
-    super();
-    this.updateChar = this.updateChar.bind(this);
-    console.log('constructor')
-  }
 
   gotService = new GotService();
 
@@ -21,6 +16,7 @@ export default class RandomChar extends Component {
 
   componentDidMount() {
     console.log('mounted')
+    this.updateChar()
   }
 
   onCharLoaded = (char: Characters) => {
@@ -54,11 +50,11 @@ export default class RandomChar extends Component {
       <div className="container py-4">
         {errorMessage}
         {content}
-        <button
+        {/* <button
           className="py-4 px-10 border border-yellow-300 text-yellow-300 mt-5"
           onClick={this.updateChar}>
           Update
-        </button>
+        </button> */}
       </div>
     );
   }

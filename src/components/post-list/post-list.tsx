@@ -6,7 +6,7 @@ const PostList = ({ posts, onDelete, onToggleImportant, onToggleLiked } : any) =
     if (typeof item === "object" && isEmpty(item)) {
       const { id, ...itemProps } = item;
       return (
-        <li className="my-4">
+        <li className="my-4" key={id}>
           <PostListItem {...itemProps} 
           onDelete={() => onDelete(id)}
           onToggleImportant={() => onToggleImportant(id)}
