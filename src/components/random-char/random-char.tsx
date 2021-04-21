@@ -7,7 +7,8 @@ import ErrorMessage from "../error-message/errorMessage";
 export default class RandomChar extends Component {
   constructor() {
     super();
-    this.updateChar();
+    this.updateChar = this.updateChar.bind(this);
+    console.log('constructor')
   }
 
   gotService = new GotService();
@@ -17,6 +18,10 @@ export default class RandomChar extends Component {
     loading: true,
     error: false,
   };
+
+  componentDidMount() {
+    console.log('mounted')
+  }
 
   onCharLoaded = (char: Characters) => {
     this.setState({
@@ -44,10 +49,16 @@ export default class RandomChar extends Component {
     const { char, loading, error } = this.state;
     const content = loading ? <Spinner /> : <View char={char} />;
     const errorMessage = error ? <ErrorMessage /> : null;
+    console.log('render')
     return (
       <div className="container py-4">
         {errorMessage}
         {content}
+        <button
+          className="py-4 px-10 border border-yellow-300 text-yellow-300 mt-5"
+          onClick={this.updateChar}>
+          Update
+        </button>
       </div>
     );
   }
@@ -71,7 +82,6 @@ const View = ({ char }: any) => {
         <li className="p-3 border-2 rounded border-black text-black bg-red-600">
           Culture {culture || "NO-INFO"}
         </li>
-        <li className="p-3 border-2 rounded border-black text-black bg-red-600"></li>
       </ul>
     </>
   );
