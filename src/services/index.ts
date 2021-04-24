@@ -5,7 +5,7 @@ export default class GotService {
     this._apiBase = "https://www.anapioficeandfire.com/api";
   }
 
-  async getResource(url: string) {
+  getResource = async (url: string) => {
     const res = await fetch(`${this._apiBase}${url}`);
 
     if (!res.ok) {
@@ -14,34 +14,34 @@ export default class GotService {
 
     return await res.json();
   }
-  async getAllCharacters() {
-    const res = await this.getResource("/characters?page=5&pageSize=10");
-    return res.map(this._transformCharacter);
+    getAllCharacters = async () => {
+    const res = await this.getResource("/characters?page=125&pageSize=10");
+    return await res.map(this._transformCharacter);
   }
-  async getCharacter(id: string | number) {
+   getCharacter = async (id: string | number) => {
     const character = await this.getResource(`/characters/${id}`);
     return this._transformCharacter(character);
   }
 
-  async getAllHouses() {
+   getAllHouses = async () => {
     const res = await this.getResource("/houses");
     return res.map(this._transformHouses);
   }
-  async getHouse(id: string | number) {
+   getHouse = async (id: string | number) => {
     const house = await this.getResource(`/houses/${id}`);
     return this._transformHouses(house);
   }
 
-  async getAllBooks() {
+   getAllBooks = async () => {
     const res = await this.getResource("/books");
     return res.map(this._transformBooks);
   }
-  async getBook(id: string | number) {
+   getBook = async (id: string | number) => {
     const book = await this.getResource(`/books/${id}`);
     return this._transformBooks(book);
   }
 
-  _transformCharacter(char: Characters) {
+  _transformCharacter = (char: Characters) => {
     return {
       name: char.name,
       gender: char.gender,
@@ -51,7 +51,7 @@ export default class GotService {
     };
   }
 
-  _transformHouses(house: Houses) {
+  _transformHouses = (house: Houses) => {
     return {
       name: house.name,
       region: house.region,
@@ -62,7 +62,7 @@ export default class GotService {
     };
   }
 
-  _transformBooks(book: Books) {
+  _transformBooks = (book: Books) => {
     return {
       name: book.name,
       numberOfPages: book.numberOfPages,

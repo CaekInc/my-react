@@ -6,7 +6,7 @@ import PostList from "../post-list/post-list";
 import PostAddForm from "../post-add-form/post-add-form";
 import GotService from "../../services/index";
 import RandomChar from "../random-char/random-char";
-import ItemList from "../item-list/item-list";
+import CharacterPage from '../characterPage/characterPage'
 
 export interface data {
   label: string;
@@ -49,12 +49,6 @@ export default class App extends Component {
     this.onToggleLiked = this.onToggleLiked.bind(this);
     this.onUpdateSearch = this.onUpdateSearch.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
-    this.got = this.got.bind(this);
-  }
-
-  got() {
-    const got = new GotService();
-    got.getAllCharacters().then((res) => console.log(res));
   }
 
   deleteItem(id: string) {
@@ -152,7 +146,7 @@ export default class App extends Component {
   toggleRandomChar = () => {
     this.setState((state) => {
       return {
-        showRandomChar: !state.showRandomChar,
+        showRandomChar: !state.showRandomChar
       };
     });
   };
@@ -180,7 +174,9 @@ export default class App extends Component {
           CHANGE
         </button>
 
-        <ItemList/>
+        <CharacterPage/>
+        <CharacterPage/>
+        <CharacterPage/>
 
         <div className="flex">
           <SearchPanel onUpdateSearch={this.onUpdateSearch} />

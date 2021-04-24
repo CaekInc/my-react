@@ -1,40 +1,41 @@
 import React, { Component } from "react";
-import GotService from "../../services";
 import Spinner from "../spinner/spinner";
-import { Characters } from "../../interfaces/index";
+
 
 export default class ItemList extends Component {
-  gotService = new GotService();
 
   state = {
-    charList: null,
+    itemList: null,
   };
 
   renderItems(arr: []) {
-    return arr.map((item: Characters, i) => {
+    return arr.map((item) => {
+      const { id, name } = item;
+      const label = this.props.renderItem(item)
       return (
-        <li className="p-4" key={i}>
-          {item.name}
+        <li className="p-4 border-sub border-t" key={id}>
+          {label}
         </li>
       );
     });
   }
 
   componentDidMount() {
-    this.gotService.getAllCharacters().then((charList) => {
+    const { getData } = this.props
+    getData()
+    .then((itemList) => {
       this.setState({
-        charList
+        itemList,
       });
     });
   }
   render() {
-    const { charlist }: any = this.state;
-
-    if (!charlist) {
+    const { itemList }: any = this.state;
+    if (!itemList) {
       return <Spinner />;
     }
 
-    const items = this.renderItems(charlist);
+    const items = this.renderItems(itemList);
 
     return <ul className="w-full p-5 border border-sub text-sub">{items}</ul>;
   }

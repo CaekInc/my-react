@@ -5,7 +5,6 @@ import Spinner from "../spinner/spinner";
 import ErrorMessage from "../error-message/errorMessage";
 
 export default class RandomChar extends Component {
-
   gotService = new GotService();
 
   state = {
@@ -15,8 +14,7 @@ export default class RandomChar extends Component {
   };
 
   componentDidMount() {
-    console.log('mounted')
-    this.updateChar()
+    this.updateChar();
   }
 
   onCharLoaded = (char: Characters) => {
@@ -45,7 +43,6 @@ export default class RandomChar extends Component {
     const { char, loading, error } = this.state;
     const content = loading ? <Spinner /> : <View char={char} />;
     const errorMessage = error ? <ErrorMessage /> : null;
-    console.log('render')
     return (
       <div className="container py-4">
         {errorMessage}
