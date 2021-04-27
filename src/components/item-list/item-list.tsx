@@ -59,7 +59,7 @@ export default function ItemList(props) {
     props.getData().then((data) => {
       setItem(data);
     });
-  });
+  }, [item]);
 
   if (!item) {
           return <Spinner />;
