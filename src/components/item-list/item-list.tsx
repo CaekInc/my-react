@@ -1,42 +1,71 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import Spinner from "../spinner/spinner";
 
+// export default class ItemList extends Component {
 
-export default class ItemList extends Component {
+//   state = {
+//     itemList: null,
+//   };
 
-  state = {
-    itemList: null,
-  };
+//   renderItems(arr: []) {
+//     return arr.map((item) => {
+//       const { id, name } = item;
+//       const label = this.props.renderItem(item)
+//       return (
+//         <li className="p-4 border-sub border-t" key={id}>
+//           {label}
+//         </li>
+//       );
+//     });
+//   }
 
-  renderItems(arr: []) {
+//   componentDidMount() {
+//     const { getData } = this.props
+//     getData()
+//     .then((itemList) => {
+//       this.setState({
+//         itemList,
+//       });
+//     });
+//   }
+//   render() {
+//     const { itemList }: any = this.state;
+//     if (!itemList) {
+//       return <Spinner />;
+//     }
+
+//     const items = this.renderItems(itemList);
+
+//     return <ul className="w-full p-5 border border-sub text-sub">{items}</ul>;
+//   }
+// }
+
+export default function ItemList(props) {
+  const [item, setItem] = useState([]);
+
+  function renderItems(arr: []) {
     return arr.map((item) => {
       const { id, name } = item;
-      const label = this.props.renderItem(item)
+      const label = props.renderItem(item);
       return (
         <li className="p-4 border-sub border-t" key={id}>
           {label}
         </li>
       );
     });
-  }
+  };
 
-  componentDidMount() {
-    const { getData } = this.props
-    getData()
-    .then((itemList) => {
-      this.setState({
-        itemList,
-      });
+  useEffect(() => {
+    props.getData().then((data) => {
+      setItem(data);
     });
-  }
-  render() {
-    const { itemList }: any = this.state;
-    if (!itemList) {
-      return <Spinner />;
-    }
+  });
 
-    const items = this.renderItems(itemList);
+  if (!item) {
+          return <Spinner />;
+        }
 
-    return <ul className="w-full p-5 border border-sub text-sub">{items}</ul>;
-  }
+  const items = renderItems(item);
+
+  return <ul className="w-full p-5 border border-sub text-sub">{items}</ul>;
 }
